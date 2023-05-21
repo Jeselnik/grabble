@@ -1,8 +1,8 @@
 /*
 In this implementation the tile bag will have tiles inserted at the front
-of a list and popped from the end in FIFO manner. The basis of this queue
+of a list and retrieved from the end in FIFO manner. The base of this queue
 is a doubly linked list with pointers to the beginning and end of the queue,
-allowing for insertion and popping in constant O(1) time.
+allowing for insertion and retrieval in constant O(1) time.
 */
 package queue
 
@@ -54,13 +54,13 @@ func (q *Queue) Pop() (*tile.Tile, error) {
 	if err != nil {
 		return &tile.Tile{}, errEmptyQueue
 	}
-	if elem != nil && q.head != q.tail {
+	if q.head != q.tail {
 		newTail := q.tail.prev
 		q.tail = newTail
 		if q.tail != nil {
 			q.tail.next = nil
 		}
-	} else if q.head == q.tail {
+	} else {
 		q.head = nil
 		q.tail = nil
 	}
