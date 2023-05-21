@@ -43,7 +43,7 @@ func (q *Queue) Push(t *tile.Tile) {
 }
 
 func (q *Queue) Peek() (*tile.Tile, error) {
-	if q.Len() == 0 {
+	if q.tail == nil {
 		return &tile.Tile{}, errEmptyQueue
 	}
 	return q.tail.tile, nil
@@ -52,7 +52,7 @@ func (q *Queue) Peek() (*tile.Tile, error) {
 func (q *Queue) Pop() (*tile.Tile, error) {
 	elem, err := q.Peek()
 	if err != nil {
-		return &tile.Tile{}, errEmptyQueue
+		return &tile.Tile{}, err
 	}
 	if q.head != q.tail {
 		newTail := q.tail.prev
@@ -60,6 +60,9 @@ func (q *Queue) Pop() (*tile.Tile, error) {
 		if q.tail != nil {
 			q.tail.next = nil
 		}
+		/* When head and tail are equal and not pointing to nil, it means
+		that there is only a single element present. As we are retrieving
+		the final element, we need to empty the queue */
 	} else {
 		q.head = nil
 		q.tail = nil
