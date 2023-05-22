@@ -92,10 +92,42 @@ func TestPop(t *testing.T) {
 
 		t.Run("Error on Empty", func(t *testing.T) {
 			_, err := q.Pop()
-			if !(errors.Is(err, errEmptyQueue)) {
-				t.Errorf("Expected error %s got %s", errEmptyQueue, err)
+			if !(errors.Is(err, ErrEmptyQueue)) {
+				t.Errorf("Expected error %s got %s", ErrEmptyQueue, err)
 			}
 		})
 
 	})
+}
+
+func TestIsEmpty(t *testing.T) {
+	q := Queue{}
+	expected := true
+	got := q.IsEmpty()
+
+	if expected != got {
+		t.Errorf("Queue is Empty, expected %t got %t", expected, got)
+	}
+
+	q.Push(tile.New('A', 0))
+
+	expected = false
+	got = q.IsEmpty()
+
+	t.Run("One Element", func(t *testing.T) {
+		if expected != got {
+			t.Errorf("Queue has 1 element, expected %t got %t", expected, got)
+		}
+	})
+
+	q.Pop()
+	expected = true
+	got = q.IsEmpty()
+
+	t.Run("After Pop", func(t *testing.T) {
+		if expected != got {
+			t.Errorf("Queue should be empty, expected %t got %t", expected, got)
+		}
+	})
+
 }

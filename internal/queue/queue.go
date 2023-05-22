@@ -19,6 +19,10 @@ type Queue struct {
 	tail *node
 }
 
+func (q *Queue) IsEmpty() bool {
+	return q.head == nil && q.tail == nil
+}
+
 func (q *Queue) Len() int {
 	len := 0
 	n := q.head
@@ -44,7 +48,7 @@ func (q *Queue) Push(t *tile.Tile) {
 
 func (q *Queue) Peek() (*tile.Tile, error) {
 	if q.tail == nil {
-		return &tile.Tile{}, errEmptyQueue
+		return &tile.Tile{}, ErrEmptyQueue
 	}
 	return q.tail.tile, nil
 }

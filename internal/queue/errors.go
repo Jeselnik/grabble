@@ -2,4 +2,4 @@ package queue
 
 import "errors"
 
-var errEmptyQueue = errors.New("empty queue")
+var ErrEmptyQueue = errors.New("empty queue")
