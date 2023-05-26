@@ -16,18 +16,15 @@ const (
 var ErrNegativeCoord = errors.New(`co-ordinates cannot include a 
 negative value`)
 
-type ErrOutOfBounds struct {
+type ErrInvalidPlacement struct {
 	x, y int
+	msg  string
 }
 
-func (e ErrOutOfBounds) Error() string {
-	return fmt.Sprintf(outofBoundsMsg, e.x, e.y, size-1)
+func (e ErrInvalidPlacement) Error() string {
+	return fmt.Sprintf(e.msg, e.x, e.y, size-1)
 }
 
-type ErrNotAdjacent struct {
-	x, y int
-}
-
-func (e ErrNotAdjacent) Error() string {
-	return fmt.Sprintf(notAdjacentMsg, e.x, e.y)
+func newErrInvalidPlacement(msg string, x, y int) ErrInvalidPlacement {
+	return ErrInvalidPlacement{x, y, msg}
 }
