@@ -42,7 +42,7 @@ func validPlacement(b *Board, x, y int) error {
 func (b *Board) Place(t *tile.Tile, x, y int) error {
 	err := validPlacement(b, x, y)
 
-	if err != nil {
+	if err == nil {
 		b[y][x] = t
 	}
 
