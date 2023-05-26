@@ -1,17 +1,33 @@
 package board
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
+
+const (
+	outofBoundsMsg = `a value in co-ordinates x: %d y: %d is invalid
+	due to size greater than max index of %d`
+
+	notAdjacentMsg = `co-ordinates x: %d y: %d are not adjacent to an
+	already placed tile`
+)
+
+var ErrNegativeCoord = errors.New(`co-ordinates cannot include a 
+negative value`)
 
 type ErrOutOfBounds struct {
-	msg string
+	x, y int
 }
 
 func (e ErrOutOfBounds) Error() string {
-	return e.msg
+	return fmt.Sprintf(outofBoundsMsg, e.x, e.y, size-1)
 }
 
-func newErrOutOfBounds(row, col int) ErrOutOfBounds {
-	return ErrOutOfBounds{
-		fmt.Sprintf(`A value in co-ordinates x: %d y: %d is invalid 
-		due to size greater than max index of %d.`, col, row, size-1)}
+type ErrNotAdjacent struct {
+	x, y int
+}
+
+func (e ErrNotAdjacent) Error() string {
+	return fmt.Sprintf(notAdjacentMsg, e.x, e.y)
 }
