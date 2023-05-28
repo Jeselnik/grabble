@@ -65,7 +65,7 @@ func TestPlace(t *testing.T) {
 	})
 
 	t.Run("Adjacent placement", func(t *testing.T) {
-		err := b.Place(tile.New('A', 0), 8, 1)
+		err := b.Place(tile.New('A', 0), 8, 7)
 
 		if err != nil {
 			t.Errorf("err should have been nil")

@@ -28,12 +28,35 @@ func validPlacement(b *Board, x, y int) error {
 	}
 
 	if x > size-1 || y > size-1 {
-		return ErrOutOfBounds{x, y}
+		return ErrInvalidPlacement{outofBoundsMsg, x, y}
 	}
 
-	/* todo - If board not empty ensure desired place is adjacent
-	to an existing tile */
 	if !b.isEmpty() {
+		xAdjs := [2]int{x - 1, x + 1}
+		yAdjs := [2]int{y - 1, y + 1}
+
+		invalid := true
+
+		for _, xAdj := range xAdjs {
+			if xAdj > -1 && xAdj < size {
+				if b[y][xAdj] != nil {
+					invalid = false
+				}
+			}
+		}
+
+		for _, yAdj := range yAdjs {
+			if yAdj > -1 && yAdj < size {
+				if b[yAdj][x] != nil {
+					invalid = false
+				}
+			}
+		}
+
+		if invalid {
+			return ErrInvalidPlacement{notAdjacentMsg, x, y}
+		}
+
 	}
 
 	return nil
