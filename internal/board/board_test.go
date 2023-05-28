@@ -1,6 +1,7 @@
 package board
 
 import (
+	"errors"
 	"testing"
 
 	"github.com/jeselnik/grabble/internal/tile"
@@ -26,4 +27,48 @@ func TestIsEmpty(t *testing.T) {
 		}
 	})
 
+}
+
+func TestPlace(t *testing.T) {
+	var b Board
+
+	t.Run("Out of Bounds (Negative)", func(t *testing.T) {
+		err := b.Place(tile.New('A', 0), -1, 0)
+
+		if !errors.Is(err, ErrNegativeCoord) {
+			t.Errorf("Should have gotten ErrNegativeCoord")
+		}
+	})
+
+	t.Run("Out of Bounds ( > Size)", func(t *testing.T) {
+		err := b.Place(tile.New('A', 0), 0, size)
+
+		if !errors.Is(err, ErrInvalidPlacement{outofBoundsMsg, 0, size}) {
+			t.Errorf("Should have got ErrInvalidPlacement")
+		}
+	})
+
+	t.Run("Arbitrary placement on empty board", func(t *testing.T) {
+		err := b.Place(tile.New('A', 0), 7, 7)
+
+		if err != nil {
+			t.Errorf("Board is empty, tile should have been placed")
+		}
+	})
+
+	t.Run("Not adjacent placement", func(t *testing.T) {
+		err := b.Place(tile.New('A', 0), 0, 0)
+
+		if !errors.Is(err, ErrInvalidPlacement{notAdjacentMsg, 0, 0}) {
+			t.Errorf("Should have gotten ErrInvalidPlacement")
+		}
+	})
+
+	t.Run("Adjacent placement", func(t *testing.T) {
+		err := b.Place(tile.New('A', 0), 8, 1)
+
+		if err != nil {
+			t.Errorf("err should have been nil")
+		}
+	})
 }
