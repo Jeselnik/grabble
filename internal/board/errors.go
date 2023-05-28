@@ -17,14 +17,10 @@ var ErrNegativeCoord = errors.New(`co-ordinates cannot include a
 negative value`)
 
 type ErrInvalidPlacement struct {
-	x, y int
 	msg  string
+	x, y int
 }
 
 func (e ErrInvalidPlacement) Error() string {
 	return fmt.Sprintf(e.msg, e.x, e.y, size-1)
-}
-
-func newErrInvalidPlacement(msg string, x, y int) ErrInvalidPlacement {
-	return ErrInvalidPlacement{x, y, msg}
 }
