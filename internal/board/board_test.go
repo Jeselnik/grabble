@@ -72,3 +72,30 @@ func TestPlace(t *testing.T) {
 		}
 	})
 }
+
+func TestTranslateCoordinates(t *testing.T) {
+	x := 'A'
+	y := 1
+
+	expX, expY := 0, 0
+
+	gotX, gotY := TranslateCoordinates(x, y)
+
+	if expX != gotX || expY != gotY {
+		t.Errorf("x: exp %d got %d\ny: exp %d got %d",
+			expX, gotX, expY, gotY)
+	}
+
+	t.Run("Lowercase", func(t *testing.T) {
+		lowerX := 'b'
+		y := 12
+
+		expX, expY := 1, 11
+		gotX, gotY := TranslateCoordinates(lowerX, y)
+
+		if expX != gotX || expY != gotY {
+			t.Errorf("x: exp %d got %d\ny: exp %d got %d",
+				expX, gotX, expY, gotY)
+		}
+	})
+}
