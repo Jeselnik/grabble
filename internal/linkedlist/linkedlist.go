@@ -107,11 +107,14 @@ func (l *LinkedList) Len() int {
 	return len
 }
 
-func (l *LinkedList) Print() {
+func (l *LinkedList) Print() string {
 	n := l.head
+	s := ""
 	for n != nil {
-		fmt.Printf("%s - %d, ", n.tile.GetLetter(), n.tile.GetValue())
+		tile := fmt.Sprintf("%s - %d, ", n.tile.GetLetter(), n.tile.GetValue())
+		s += tile
 		n = n.next
 	}
-	fmt.Print("\n")
+	s += "\n"
+	return s
 }

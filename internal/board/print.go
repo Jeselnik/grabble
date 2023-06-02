@@ -7,7 +7,7 @@ const (
 	horizLine = `   ---------------------------------------------`
 )
 
-func Print(b *Board) {
+func Print(b Board) {
 	fmt.Print(letters + "\n" + horizLine + "\n")
 	for row := 0; row < size; row++ {
 		fmt.Printf("%2.f|", float32(row+1))
