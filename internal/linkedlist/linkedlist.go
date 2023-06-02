@@ -1,6 +1,8 @@
 package linkedlist
 
 import (
+	"fmt"
+
 	"github.com/jeselnik/grabble/internal/tile"
 )
 
@@ -103,4 +105,13 @@ func (l *LinkedList) Len() int {
 		n = n.next
 	}
 	return len
+}
+
+func (l *LinkedList) Print() {
+	n := l.head
+	for n != nil {
+		fmt.Printf("%s - %d, ", n.tile.GetLetter(), n.tile.GetValue())
+		n = n.next
+	}
+	fmt.Print("\n")
 }
