@@ -8,10 +8,10 @@ type Player struct {
 	score, turnsPassed uint
 }
 
-func New(name string) Player {
+func New(name string) *Player {
 	p := Player{}
 	p.name = name
-	return p
+	return &p
 }
 
 func (p *Player) GetName() string {

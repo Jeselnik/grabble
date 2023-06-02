@@ -1,10 +1,10 @@
 package board
 
 const (
-	ascii_A_VAL = 65
-	ascii_Z_VAL = 90
-	ascii_a_VAL = 97
-	ascii_z_VAL = 122
+	ascii_A_VAL = 'A'
+	ascii_Z_VAL = 'Z'
+	ascii_a_VAL = 'a'
+	ascii_z_VAL = 'z'
 	diff        = ascii_a_VAL - ascii_A_VAL
 )
 
